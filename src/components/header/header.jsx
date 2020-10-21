@@ -44,9 +44,14 @@ const mapStateToProps = createStructuredSelector({
     hidden: selectCartHidden,
 });
 /*The above code is same as : 
-const mapStateToProps = (state) => ({  //the "state" object is just the root reducer    
+const mapStateToProps = (state) => ({         //the "state" object is just the root reducer    
     currentUser: state.user.currentUser
     hidden: state.cart.hidden
 });
+Above code can be written without using createStructuredSelector:
+const mapStateToProps = (state)=> ({
+    currentUser: selectCurrentUser(state),
+     hidden: selectCartHidden(state),
+})
 */
 export default connect(mapStateToProps)(Header);

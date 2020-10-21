@@ -1,12 +1,16 @@
 import React from 'react';
-import CustomButton from '../custom-button/custom-button';
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { selectCartItems } from '../../redux/cart/cart.selectors'
-import './cart-dropdown.styles.scss';
-import CartItem from '../cart-item/cart-item';
 import { createStructuredSelector } from 'reselect'
+
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
+
+import CustomButton from '../custom-button/custom-button';
+import CartItem from '../cart-item/cart-item';
+
+import { selectCartItems } from '../../redux/cart/cart.selectors'
+
+import './cart-dropdown.styles.scss';
 
 const CartDropDown = ({ cartItems, history, dispatch }) => {
     return (
@@ -37,5 +41,15 @@ const CartDropDown = ({ cartItems, history, dispatch }) => {
 const mapStateToProps = createStructuredSelector({
     cartItems: selectCartItems
 })
+//Above code can be written without using selectors or Reselect lib:
+// const mapStateToProps = (state) => ({
+//   cartItems: state.cart.cartItems
+// })
+
+/*Above code can be written without using createStructuredSelector:
+const mapStateToProps = (state)=> ({
+    cartItems: selectCartItems(state)
+})
+*/
 
 export default withRouter(connect(mapStateToProps)(CartDropDown));
