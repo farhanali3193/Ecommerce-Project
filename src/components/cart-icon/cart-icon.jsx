@@ -8,7 +8,7 @@ import './cart-icon.styles.scss';
 
 
 const CartIcon = ({ toggleCartHidden, itemCount }) => {
-    console.log('Rerendered cart icon')
+    // console.log('Rerendered cart icon')
     return (
         <div className="cart-icon" onClick={toggleCartHidden}>
             <ShoppingIcon className='shopping-icon'/>

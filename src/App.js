@@ -12,7 +12,7 @@ import CheckoutPage from './pages/checkout/checkout';
 
 import Header from './components/header/header';
 
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument, } from './firebase/firebase.utils';
 
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
@@ -22,8 +22,9 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount(){
-    const { setCurrentUser } = this.props;
+    const { setCurrentUser, } = this.props;
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => { //userAuth is just the userAuth object or the Google User object.
+      // console.log('User;', userAuth)
       if(userAuth){
         // console.log(userAuth);
         const userRef = await createUserProfileDocument(userAuth)
@@ -59,9 +60,11 @@ class App extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
 })
+
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)) //Variable shadowing happening, fix it after the course. Change the name during the import.
 })
+
 export default connect(mapStateToProps, mapDispatchToProps)(App);
