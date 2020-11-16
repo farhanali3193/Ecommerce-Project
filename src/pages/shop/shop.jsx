@@ -23,13 +23,33 @@ class ShopPage extends React.Component{
     componentDidMount(){
         const { updateCollections } = this.props;
         const collectionRef = firestore.collection('collections'); //collectionRef.get() or .onSnapShot() will return a collection SnapShot obj.  
-        this.unsubscribeFromSnapshot = collectionRef.onSnapshot( async snapshot => { //By using .doc on the collection snapshot obj, we can get an array of doc snapshot objs.
-            // console.log('Collection SNAPSHOT:',snapshot.docs[0].data())  //And the actual data is inside the doc snapshot obj, which can be accessed by using .data() method.
+        
+        //The below code uses the Observer-Observable pattern, where the observer subscribes to the observable (stream of events). The observer is an obj having 3 methods: next(), error(), complete()
+        
+        // this.unsubscribeFromSnapshot = collectionRef.onSnapshot( async snapshot => {  //This async fn is the next fn in an observer.  //By using .doc on the collection snapshot obj, we can get an array of doc snapshot objs.
+        //     // console.log('Collection SNAPSHOT:',snapshot.docs[0].data())  //And the actual data is inside the doc snapshot obj, which can be accessed by using .data() method.
+        //     const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+        //     // console.log('collectionsMap:',collectionsMap);
+        //     updateCollections(collectionsMap);
+        //     this.setState({loading: false});
+        // })
+
+        //We can use Promises as well, but it would mean that we are only calling it once our component gets mounted. No live updates as we saw in the Observer pattern using onSnapShot.
+        //So we will only get new data once our shop page component gets re mounted.
+
+        collectionRef.get().then(async snapshot => { 
+            // console.log('Collection SNAPSHOT:',snapshot.docs[0].data())  
             const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
             // console.log('collectionsMap:',collectionsMap);
             updateCollections(collectionsMap);
             this.setState({loading: false});
         })
+
+        //We can also use fetch as Firestore allows us to make REST API calls
+        // fetch('https://firestore.googleapis.com/v1/projects/e-store-9c4e7/databases/(default)/documents/collections')
+        // .then(resp => resp.json())
+        // .then(collections => console.log(collections));
+
     }
 
     render(){
