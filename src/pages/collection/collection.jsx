@@ -8,6 +8,11 @@ import CollectionItem from '../../components/collection-item/collection-item';
 import './collection.styles.scss';
 
 const CollectionPage = ({ collection }) => {
+    // if(!collection){
+    //     return <h1> LOADING</h1>
+    // }
+    // const {title, items} = collection || {title : '', items : []};
+    
     const { items, title } = collection
     return(
         <div className="collection-page">
