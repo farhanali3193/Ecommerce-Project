@@ -1,3 +1,4 @@
+// import thunk from 'redux-thunk';
 import ShopActionTypes from './shop.types';
 
 
