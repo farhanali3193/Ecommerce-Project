@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -9,13 +9,16 @@ import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
 import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container'
 import CollectionPageContainer from '../collection/collection.container';
 
-class ShopPage extends React.Component{
+const ShopPage = ({ match, fetchCollectionsStart}) => {
+    useEffect(()=>{
+        fetchCollectionsStart()
+    },[fetchCollectionsStart])
     // state = {                  //Same as writing a constructor with a call to super()
     //     loading: true,
     // }
     // unsubscribeFromSnapshot = null;
 
-    componentDidMount(){
+    // componentDidMount(){
         // const { updateCollections } = this.props;
         // const collectionRef = firestore.collection('collections'); //collectionRef.get() or .onSnapShot() will return a collection SnapShot obj.  
         
@@ -44,12 +47,12 @@ class ShopPage extends React.Component{
         // fetch('https://firestore.googleapis.com/v1/projects/e-store-9c4e7/databases/(default)/documents/collections')
         // .then(resp => resp.json())
         // .then(collections => console.log(collections));
-        const { fetchCollectionsStart } = this.props;
-        fetchCollectionsStart()
-    }
+        // const { fetchCollectionsStart } = this.props;
+    //     fetchCollectionsStart()
+    // }
 
-    render(){
-        const { match, } = this.props;
+
+        // const { match, } = this.props;
         // const { loading } = this.state;
         return (
             <div className='shop-page'> 
@@ -57,7 +60,7 @@ class ShopPage extends React.Component{
                 <Route path = {`${match.path}/:collectionId`} component = {CollectionPageContainer} />
             </div>
         )
-    }
+    
 }
 
 const mapDispatchToProps = (dispatch) => ({

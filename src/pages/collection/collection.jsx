@@ -12,7 +12,17 @@ const CollectionPage = ({ collection }) => {
     //     return <h1> LOADING</h1>
     // }
     // const {title, items} = collection || {title : '', items : []};
-    
+
+    //Cleaner function within useEffect:
+    // useEffect(() => {
+    //     console.log('I am subscribing');
+    //     const unsubscribeFromCollections = firestore.collection('collections').onSnapshot((snapshot) => console.log(snapshot));
+    //     return () => {
+    //         console.log('I am unsubscribing');
+    //         unsubscribeFromCollections();
+    //     }
+    // }, [])
+
     const { items, title } = collection
     return(
         <div className="collection-page">

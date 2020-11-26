@@ -28,7 +28,8 @@ export const createUserProfileDocument = async (userAuth, additionalData) => { /
   //collectionSnapshot.empty just checks if our query is empty or not. collectionSnapshot.size gives us how many objs are inside the collection
   //
   if(!snapshot.exists){ //If snapshot.exists is true, it means there is data and we have already stored the user object. If not, then we create the data in the doc. That's all this code is doing.
-      const { email, displayName } = userAuth;
+  console.log('snap.exists:',snapshot)    
+  const { email, displayName } = userAuth;
       const createdAt = new Date();
       try {
         await userRef.set({
