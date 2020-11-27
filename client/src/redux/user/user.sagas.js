@@ -62,15 +62,15 @@ export function* signOut(){
 export function* signUp({ payload: { email, password, displayName }}){
     try{
         const { user } = yield auth.createUserWithEmailAndPassword(email, password)
-        // console.log('user', user)
+        console.log('user', user)
         const userAuth = {...user, displayName }
-        // console.log('signUpuserAuth', userAuth)
+        console.log('signUpuserAuth', userAuth)
 
         const userRef = yield call(createUserProfileDocument, userAuth);
-        // console.log('userRef',userRef);
+        console.log('userRef',userRef);
         const userSnapshot = yield userRef.get();
-        // console.log('usersnap',userSnapshot);
-        // console.log('usersnap.data',userSnapshot.data());
+        console.log('usersnap',userSnapshot);
+        console.log('usersnap.data',userSnapshot.data());
         yield put(
             signUpSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
         );

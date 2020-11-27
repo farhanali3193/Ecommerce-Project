@@ -27,7 +27,8 @@ export const createUserProfileDocument = async (userAuth, additionalData) => { /
   // collectionSnapshot.docs would give us an array of docs inside of our collection but they will be doc snapshot objects. So basically an array of doc snapshot objs.
   //collectionSnapshot.empty just checks if our query is empty or not. collectionSnapshot.size gives us how many objs are inside the collection
   //
-  if(!snapshot.exists){ //If snapshot.exists is true, it means there is data and we have already stored the user object. If not, then we create the data in the doc. That's all this code is doing.   
+  if(!snapshot.exists){ //If snapshot.exists is true, it means there is data and we have already stored the user object. If not, then we create the data in the doc. That's all this code is doing.
+  console.log('snap.exists:',snapshot)    
   const { email, displayName } = userAuth;
       const createdAt = new Date();
       try {
@@ -41,7 +42,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => { /
             console.log('error creating user', error.message)
       }
     }
-    console.log('firebase userRef',userRef)
+    // console.log('firebase userRef',userRef)
   return userRef;
 }
 
